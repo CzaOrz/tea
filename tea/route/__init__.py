@@ -36,6 +36,10 @@ class Route:
                     "partyMapKeys": party.routeMap.keys(),
                 }).panic("route conflict")
             self.routeMap.update(party.routeMap)
+        print(self.routeMap)
+        if self.mws:
+            for route, value in self.routeMap.items():
+                self.routeMap[route] = (self.mws + value[0], value[1])
 
     def Register(self, method: str, route: str, *args):
         if not args:
@@ -48,7 +52,7 @@ class Route:
         mws, handler = args[:-1], args[-1]
         CheckMw(*mws)
         CheckArgs(handler)
-        self.routeMap[route] = (mws, handler)
+        self.routeMap[route] = [list(mws), handler]
 
     def Get(self, route: str, *args):
         self.Register("GET", route, *args)
