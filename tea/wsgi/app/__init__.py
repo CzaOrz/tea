@@ -5,3 +5,7 @@ def Application(environ, start_response):
     from pprint import pprint
     pprint(environ)
     return [b"test"]
+
+
+class App():
+    pass
