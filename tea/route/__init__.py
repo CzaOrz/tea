@@ -49,3 +49,15 @@ class Route:
         CheckMw(*mws)
         CheckArgs(handler)
         self.routeMap[route] = (mws, handler)
+
+    def Get(self, route: str, *args):
+        self.Register("GET", route, *args)
+
+    def Post(self, route: str, *args):
+        self.Register("POST", route, *args)
+
+    def Put(self, route: str, *args):
+        self.Register("PUT", route, *args)
+
+    def Delete(self, route: str, *args):
+        self.Register("DELETE", route, *args)
