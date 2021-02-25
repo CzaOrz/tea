@@ -1,4 +1,6 @@
 # coding: utf-8
+import loggus
+
 from collections import defaultdict
 
 __all__ = "NewCtx",
@@ -35,6 +37,8 @@ class Ctx:
         for key, value in environ.items():
             if key.startswith("HTTP_"):
                 self.__headers[key.replace("HTTP_", "")] = value
+        # extract log
+        self.__log = loggus.withFields({"path": self.__path, "method": self.__method, "remoteAddr": self.__remoteAddr})
 
     @property
     def ContentLength(self):
@@ -79,6 +83,10 @@ class Ctx:
     @property
     def ResponseBody(self):
         return self.__responseBody
+
+    @property
+    def Log(self):
+        return self.__log
 
     def writeStr(self, body: str):
         self.__responseBody.append(body.encode("utf-8"))

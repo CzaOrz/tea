@@ -1,7 +1,9 @@
 # coding: utf-8
 import loggus
 
-from tea.mw import CheckMw
+from tea.mw import CheckMw, CheckArgs
+
+__all__ = "Route",
 
 
 class Route:
@@ -45,4 +47,5 @@ class Route:
             self.log.panic(f"conflict route[{route}]")
         mws, handler = args[:-1], args[-1]
         CheckMw(*mws)
+        CheckArgs(handler)
         self.routeMap[route] = (mws, handler)
