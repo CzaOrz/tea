@@ -29,7 +29,7 @@ class CleanHandler(BaseHandler):
         return self.stderr
 
     def add_cgi_vars(self):
-        self.environ = self.base_env
+        self.environ.update(self.base_env)
 
     def _write(self, data):
         result = self.stdout.write(data)
@@ -49,7 +49,7 @@ class CleanHandler(BaseHandler):
 class RequestHandler(BaseHTTPRequestHandler):
 
     def get_environ(self):
-        env = self.server.base_environ.copy()
+        env = {}
         env['SERVER_PROTOCOL'] = self.request_version
         env['SERVER_SOFTWARE'] = self.server_version
         env['REQUEST_METHOD'] = self.command
