@@ -36,7 +36,6 @@ class Route:
                     "partyMapKeys": party.routeMap.keys(),
                 }).panic("route conflict")
             self.routeMap.update(party.routeMap)
-        print(self.routeMap)
         if self.mws:
             for route, value in self.routeMap.items():
                 self.routeMap[route] = (self.mws + value[0], value[1])
